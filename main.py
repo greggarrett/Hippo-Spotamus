@@ -1,5 +1,4 @@
 import csv
-import pandas as pd
 import numpy as nm
 from song import song
 from masterlist import masterlist

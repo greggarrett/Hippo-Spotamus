@@ -1,26 +1,23 @@
+import csv
 import pandas as pd
 import numpy as nm
 from song import song
 from masterlist import masterlist
 
 
-mydf = pd.read_csv('data.csv')
-desired_width=320
-pd.set_option('display.width', desired_width)
-pd.set_option('display.max_columns',21)
-#mydf.columns = mydf.columns.map(lambda capital: capital.capitalize())
-print(mydf)
-#print(mydf.info)
+songlist = [] #Declares as a list
+with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
+    reader = csv.reader(csvfile, delimiter=',')
+    counter = 0 # Counter to exclude first row
+    for row in reader:
+      if counter > 0:
+          songlist.append(song(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[8], row[9], row[10], row[11],
+                          row[12], row[14], row[16], row[17], row[18]))# Assignment operator
+          counter += 1
+      else:
+          counter +=1
 
+for song in songlist:# How to traverse songlist
+    print(song.name)
 
-songlist = [(song(row.valence, row.year, row.acousticness, row.artists, row.danceability,
-                 row.duration_ms, row.energy, row.id, row.instrumentalness, row.key, row.liveness,
-                 row.loudness, row.name, row.release_date, row.speechiness, row.tempo))
-            for index, row in mydf.iterrows()]
-
-for x in range(len(songlist)):
-    print (songlist[x].name)
-
-#allSongs = masterlist(songlist)
-
-#print(allSongs.songlist[song.name] for song in allSongs)
+master = masterlist(songlist)# If we want an object for the list

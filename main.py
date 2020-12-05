@@ -1,7 +1,9 @@
 import csv
+import pandas as pd
 import numpy as nm
 from song import song
 from masterlist import masterlist
+from window import Window
 
 
 songlist = [] #Declares as a list
@@ -16,7 +18,15 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
       else:
           counter +=1
 
-for song in songlist:# How to traverse songlist
-    print(song.name)
+
+
+#for song in songlist:# How to traverse songlist
+    #print(song.name)
+
+
+
 
 master = masterlist(songlist)# If we want an object for the list
+
+Window()
+

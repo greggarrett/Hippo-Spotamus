@@ -1,6 +1,7 @@
 from maxheap import maxheap
+import time
 from tkinter import *
-
+from PIL import Image, ImageTk
 class Window(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -33,13 +34,37 @@ class Window(Frame):
 
         # Adds Search Tab to menu
         menu.add_cascade(label="Search", menu=search)
+        self.showImg()
 
+    def showImg(self):
+        loadBlack = Image.open("black.png")
+        renderBlack = ImageTk.PhotoImage(loadBlack)
+
+        imgBlack = Label(self, image=renderBlack)
+        imgBlack.image = renderBlack
+        imgBlack.place(x=0, y=0)
+
+        loadGreen = Image.open("green.png")
+        renderGreen = ImageTk.PhotoImage(loadGreen)
+
+        imgGreen = Label(self, image=renderGreen)
+        imgGreen.image = renderGreen
+        imgGreen.place(x=25, y=25)
+
+    def showGraphText(self):
+        text = Label(self, text="Now Generating Your Playlist!")
+        text.place(x=50, y=50)
+    def showHeapText(self):
+        text = Label(self, text="Now Generating Your Playlist!")
+        text.place(x=50, y=50)
 
     def client_exit(self):
         exit()
     def max_heap(self):
-        print("Call Max-Heap Builder")
+        self.showHeapText()
+        print("Call Max-Heap Builder", 12)
     def graph(self):
+        self.showGraphText()
         print("Call Graph Builder")
     def searchID(self):
         print("Call searchID function")
@@ -47,6 +72,6 @@ class Window(Frame):
         print("Call searchName function")
 
 root = Tk()
-root.geometry("800x600")
+root.geometry("400x300")
 app = Window(root)
 root.mainloop()

@@ -54,12 +54,11 @@ dictionary = {}
 x = 0
 size = len(songlist)
 for song in songlist:
-    s1 = (float(song.acousticness)+float(song.liveness))/2
-    s2 = (float(song.valence) + float(song.danceability))/2
-    s3 = (float(song.energy) + (float(song.loudness)/-60))/2
+    song.score1 = s1 = (float(song.acousticness)+float(song.liveness))/2
+    song.score2 = s2 = (float(song.valence) + float(song.danceability))/2
+    song.score3 = s3 = (float(song.energy) + (float(song.loudness)/-60))/2
     scorelist.append(scores(s1, s2, s3))
-
-    dictionary[song.id] = [song, scorelist[x]]
+    dictionary[song.id] = [song]
     x = x + 1
 
 menu = True
@@ -149,7 +148,7 @@ while menu:
         elif len(possible) == 1:
             print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
         elif len(possible) > 1:
-            print("Select the artist you are looking for: \n")
+            print("Select the artist you are looking for: ")
             x = 1
             for artists in possible:
                 print(str(x) + ': ' + artists)
@@ -158,8 +157,25 @@ while menu:
             print('\n')
             print(possible2[pick - 1])
     elif menu =="3":
-      print("ID of Song is: ")
-        # Call ID finder
+        choice = input("please enter a song: ")
+        possible = []
+        possible2 = []
+        for song in songlist:
+            if song.name == choice:
+                possible.append(song.artists)
+                possible2.append(song.id)
+        if len(possible) == 0:
+            print("song not found, please try another song.")
+        elif len(possible) == 1:
+            print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0])
+        elif len(possible) > 1:
+            print("Select the artist you are looking for: ")
+            x = 1
+            for artists in possible:
+                print(str(x) + ': ' + artists)
+                x = x + 1
+            pick = input("enter choice as a numerical answer ex '1' : ")
+            print('\n' + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
     elif menu =="4":
       print("\nGoodbye!")
       menu = None

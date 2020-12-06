@@ -1,7 +1,6 @@
 import csv
 from song import song, songScore1Comparable, songScore2Comparable, songScore3Comparable
 from scores import scores
-from masterlist import masterlist
 from minheap import minheap
 from graph import Graph
 from queue import PriorityQueue
@@ -45,7 +44,6 @@ def getSongScore2(s):
 def getSongScore3(s):
     return s.score3
 
-
 songlist = [] #Declares as a list
 with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
     reader = csv.reader(csvfile, delimiter=',')
@@ -58,11 +56,6 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
       else:
           counter +=1
 
-
-#for song in songlist:# How to traverse songlist
-    #print(song.name)
-
-master = masterlist(songlist)# If we want an object for the list
 scorelist = [] #declare a list
 score1List = []
 score2List = []
@@ -120,14 +113,9 @@ while menu:
             for artists in possible:
                 print(str(x) + ': ' + artists)
                 x = x + 1
-            pick = input("Enter choice as a numerical answer ex '1' : ")
+            pick = input("Enter choice as a numerical answer ex '1': ")
             targetSong = possibleSong[int(pick)-1]
             print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
-
-            # THIS IS THE PROBLEM AREA
-            # Trying to get score object from dictionary given ID. Also want the song object
-            # Can I just get a single key's pair from the dictionary and use that? How would I implement that?
-            # Using the getSongScore method at the top
 
         adjustedSongList = []
         for song in songlist:
@@ -180,8 +168,6 @@ while menu:
                 if len(finalPlaylist) < 15:
                     if occurences[song.id] == 2:
                         finalPlaylist.append(song)
-
-
 
         print("\nPrinting First Playlist: ")
         print("---------------------------")
@@ -241,7 +227,7 @@ while menu:
             for artists in possible:
                 print(str(x) + ': ' + artists)
                 x = x + 1
-            pick = input("Enter choice as a numerical answer ex '1' : ")
+            pick = input("Enter choice as a numerical answer ex '1': ")
             targetSong = possibleSong[int(pick)-1]
             print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
 

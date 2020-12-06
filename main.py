@@ -2,9 +2,9 @@ import csv
 import pandas as pd
 import numpy as nm
 from song import song
+from scores import scores
 from masterlist import masterlist
 from window import Window
-
 
 songlist = [] #Declares as a list
 with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
@@ -23,7 +23,13 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
 #for song in songlist:# How to traverse songlist
     #print(song.name)
 
-
+scorelist = [] #declare a list
+size = len(songlist)
+for song in songlist:
+    s1 = (float(song.acousticness)+float(song.liveness))/2
+    s2 = (float(song.valence) + float(song.danceability))/2
+    s3 = (float(song.energy) + (float(song.loudness)/-60))/2
+    scorelist.append(scores(s1, s2, s3))
 
 
 master = masterlist(songlist)# If we want an object for the list

@@ -31,12 +31,13 @@ for song in songlist:
 
 menu = True
 while menu:
-    print("""
-    1.Generate Max-Heap Playlist
-    2.Generate Graph Playlist
-    3.Search for Song ID
-    4.Exit/Quit
-    """)
+    print(
+    "\n--------- MENU ---------\n"
+    "1.Generate Max-Heap Playlist\n"
+    "2.Generate Graph Playlist\n"
+    "3.Search for Song ID\n"
+    "4.Exit\n"
+    )
     menu = input("What would you like to do? ")
     if menu =="1":
         heap1 = minheap(len(songlist))
@@ -78,7 +79,7 @@ while menu:
       print("ID of Song is: ")
         # Call ID finder
     elif menu =="4":
-      print("\n EXIT")
+      print("\nGoodbye!")
       menu = None
     else:
-       print("\n Please Try Again")
+       print("Please Try Again")

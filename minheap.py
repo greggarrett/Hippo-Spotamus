@@ -7,7 +7,6 @@ class minheap(object):
         self.size = 0
         self.heap = [0] * (self.max + 1)
         self.heap2 = [0] * (self.max + 1)
-        self.heap[0] = -1 * sys.maxsize
 
     def childLeft(self, loc):
         return 2 * loc

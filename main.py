@@ -135,7 +135,7 @@ while menu:
         resulting3 = []
 
         counter = len(adjustedSongList)
-        while counter >= 0:
+        while counter > 0:
             resulting1.append(heap1.delete())
             resulting2.append(heap2.delete())
             resulting3.append(heap3.delete())
@@ -173,6 +173,9 @@ while menu:
             if (counter < 15):
                 print(resulting.name + " by " + resulting.artists)
                 counter += 1
+
+
+
 
     elif menu =="2":
         print("Graph")

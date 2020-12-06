@@ -71,7 +71,7 @@ while menu:
     "1.Generate Max-Heap Playlist\n"
     "2.Generate Graph Playlist\n"
     "3.Search for Song ID\n"
-    "4.Search Songs by Artist"
+    "4.Search Songs by Artist\n"
     "5.Exit\n"
     )
     menu = input("What would you like to do? ")
@@ -219,6 +219,7 @@ while menu:
     elif menu =="4":
         artlist = []
         art = input("Input your favorite artist: ")
+        art = "['" + art + "']"
         for song in songlist:
             if song.artists == art:
                 artlist.append(song.name)

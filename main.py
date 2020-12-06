@@ -4,6 +4,35 @@ from scores import scores
 from masterlist import masterlist
 from minheap import minheap
 
+def keyChecker(dict, string):
+    if string in dict.keys():
+        return True
+    else:
+        return False
+
+
+def idToName(id, songlist):
+    for song in songlist:
+        if (song.id == id):
+            return song
+
+    print("No song found with that ID")
+    return
+
+def nameSearch(name, songlist):
+    found = []
+    for song in songlist:
+        if (song.name == name):
+            found.append(song)
+
+    return found
+
+def getSongScore(dictionary, songID):
+    for key in dictionary.keys():
+        if key == songID:
+            return dictionary[key]
+
+
 songlist = [] #Declares as a list
 with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
     reader = csv.reader(csvfile, delimiter=',')
@@ -45,6 +74,32 @@ while menu:
     )
     menu = input("What would you like to do? ")
     if menu =="1":
+        choice = input("Please input your favorite song: ")
+        searchResults = nameSearch(choice)
+        if (len(searchResults) >= 1):
+            if (len(searchResults) == 1):
+                song = searchResults[0]
+                songID = song.id
+            else:
+                print("Duplicate song titles found")
+
+                found = False
+                for song in searchResults:
+                    yn = input("Is this the artist of your song? (Y/N): \n", song.artists)
+                    if (yn == 'y'):
+                        songID = song.id
+                        found = True
+
+                if not (found):
+                    print("Try entering a different song: ")
+                    break
+
+            # THIS IS THE PROBLEM AREA
+            # Trying to get score object from dictionary given ID. Also want the song object
+            # Can I just get a single key's pair from the dictionary and use that? How would I implement that?
+            # Using the getSongScore method at the top
+
+
         heap1 = minheap(len(songlist))
         heap2 = minheap(len(songlist))
         heap3 = minheap(len(songlist))

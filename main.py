@@ -1,10 +1,8 @@
 import csv
-import pandas as pd
-import numpy as nm
 from song import song
 from scores import scores
 from masterlist import masterlist
-from window import Window
+from minheap import minheap
 
 songlist = [] #Declares as a list
 with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
@@ -19,10 +17,10 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
           counter +=1
 
 
-
 #for song in songlist:# How to traverse songlist
     #print(song.name)
 
+master = masterlist(songlist)# If we want an object for the list
 scorelist = [] #declare a list
 size = len(songlist)
 for song in songlist:
@@ -31,8 +29,56 @@ for song in songlist:
     s3 = (float(song.energy) + (float(song.loudness)/-60))/2
     scorelist.append(scores(s1, s2, s3))
 
+menu = True
+while menu:
+    print("""
+    1.Generate Max-Heap Playlist
+    2.Generate Graph Playlist
+    3.Search for Song ID
+    4.Exit/Quit
+    """)
+    menu = input("What would you like to do? ")
+    if menu =="1":
+        heap1 = minheap(len(songlist))
+        heap2 = minheap(len(songlist))
+        heap3 = minheap(len(songlist))
 
-master = masterlist(songlist)# If we want an object for the list
+        for score in scorelist:
+            heap1.insert(score.score1)
+            heap2.insert(score.score2)
+            heap3.insert(score.score3)
 
-Window()
+        resulting1 = []
+        resulting2 = []
+        resulting3 = []
 
+        counter = 0
+        while (counter < 15):
+            resulting1.append(heap1.delete())
+            resulting2.append(heap1.delete())
+            resulting3.append(heap1.delete())
+            counter += 1
+
+        print("\nPrinting resulting1: ")
+        for resulting in resulting1:
+            print(resulting)
+
+        print("\nPrinting resulting2: ")
+        for resulting in resulting2:
+            print(resulting)
+
+        print("\nPrinting resulting3: ")
+        for resulting in resulting3:
+            print(resulting)
+
+    elif menu =="2":
+        print("Graph")
+        # Call Graph class
+    elif menu =="3":
+      print("ID of Song is: ")
+        # Call ID finder
+    elif menu =="4":
+      print("\n EXIT")
+      menu = None
+    else:
+       print("\n Please Try Again")

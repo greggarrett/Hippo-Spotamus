@@ -4,6 +4,9 @@ from scores import scores
 from masterlist import masterlist
 from minheap import minheap
 
+with open("wakeup.txt", 'r') as file:
+    print(file.read())
+
 def keyChecker(dict, string):
     if string in dict.keys():
         return True
@@ -155,7 +158,7 @@ while menu:
         print("---------------------------")
 
         counter = 0
-        for resulting in resulting2:
+        for resulting in resulting3:
             if (counter < 15):
                 print(resulting.name + " by " + resulting.artists)
                 counter += 1

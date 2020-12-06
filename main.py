@@ -77,6 +77,7 @@ while menu:
         possible = []
         possible2 = []
         possibleSong = []
+        targetSong = choice
         for song in songlist:
             if song.name == choice:
                 possible.append(song.artists)
@@ -112,26 +113,25 @@ while menu:
         targetScore3 = targetSong.score3
 
         for song in adjustedSongList:
-            song.score1 = (1-abs(targetScore1-song.score1))
+            song.score1 = (1 - abs(targetScore1 - song.score1))
             song.score2 = (1 - abs(targetScore2 - song.score2))
             song.score3 = (1 - abs(targetScore3 - song.score3))
 
+        heap1 = minheap(len(adjustedSongList))
+        heap2 = minheap(len(adjustedSongList))
+        heap3 = minheap(len(adjustedSongList))
 
-        heap1 = minheap(len(songlist))
-        heap2 = minheap(len(songlist))
-        heap3 = minheap(len(songlist))
-
-        for score in scorelist:
-            heap1.insert(targetSong, 1)
-            heap2.insert(targetSong, 2)
-            heap3.insert(targetSong, 3)
+        for song in adjustedSongList:
+            heap1.insert(song.score1, song)
+            heap2.insert(song.score2, song)
+            heap3.insert(song.score3, song)
 
         resulting1 = []
         resulting2 = []
         resulting3 = []
 
         counter = 0
-        while (counter < 15):
+        while counter < 15:
             resulting1.append(heap1.delete())
             resulting2.append(heap2.delete())
             resulting3.append(heap3.delete())
@@ -139,15 +139,15 @@ while menu:
 
         print("\nPrinting resulting1: ")
         for resulting in resulting1:
-            print(resulting)
+            print(resulting.name)
 
         print("\nPrinting resulting2: ")
         for resulting in resulting2:
-            print(resulting)
+            print(resulting.name)
 
         print("\nPrinting resulting3: ")
         for resulting in resulting3:
-            print(resulting)
+            print(resulting.name)
 
     elif menu =="2":
         print("Graph")

@@ -76,14 +76,17 @@ while menu:
         choice = input("Please enter a song: ")
         possible = []
         possible2 = []
+        possibleSong = []
         for song in songlist:
             if song.name == choice:
                 possible.append(song.artists)
                 possible2.append(song.id)
+                possibleSong.append(song)
         if len(possible) == 0:
             print("Song not found, please try another song!")
         elif len(possible) == 1:
-            print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
+            targetSong = possibleSong[0]
+            print("\n" + choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
         elif len(possible) > 1:
             print("Select the artist you are looking for: ")
             x = 1
@@ -91,13 +94,27 @@ while menu:
                 print(str(x) + ': ' + artists)
                 x = x + 1
             pick = input("Enter choice as a numerical answer ex '1' : ")
-            if (pick <= len(possible)):
-                print(choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
+            targetSong = possibleSong[int(pick)-1]
+            print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
 
             # THIS IS THE PROBLEM AREA
             # Trying to get score object from dictionary given ID. Also want the song object
             # Can I just get a single key's pair from the dictionary and use that? How would I implement that?
             # Using the getSongScore method at the top
+
+        adjustedSongList = []
+        for song in songlist:
+            song2 = song
+            adjustedSongList.append(song2)
+
+        targetScore1 = targetSong.score1
+        targetScore2 = targetSong.score2
+        targetScore3 = targetSong.score3
+
+        for song in adjustedSongList:
+            song.score1 = (1-abs(targetScore1-song.score1))
+            song.score2 = (1 - abs(targetScore2 - song.score2))
+            song.score3 = (1 - abs(targetScore3 - song.score3))
 
 
         heap1 = minheap(len(songlist))
@@ -105,9 +122,9 @@ while menu:
         heap3 = minheap(len(songlist))
 
         for score in scorelist:
-            heap1.insert(score.score1)
-            heap2.insert(score.score2)
-            heap3.insert(score.score3)
+            heap1.insert(targetSong, 1)
+            heap2.insert(targetSong, 2)
+            heap3.insert(targetSong, 3)
 
         resulting1 = []
         resulting2 = []
@@ -116,8 +133,8 @@ while menu:
         counter = 0
         while (counter < 15):
             resulting1.append(heap1.delete())
-            resulting2.append(heap1.delete())
-            resulting3.append(heap1.delete())
+            resulting2.append(heap2.delete())
+            resulting3.append(heap3.delete())
             counter += 1
 
         print("\nPrinting resulting1: ")
@@ -134,7 +151,7 @@ while menu:
 
     elif menu =="2":
         print("Graph")
-        choice = input("please enter a song: ")
+        choice = input("Please enter a song: ")
         possible = []
         possible2 = []
         for song in songlist:
@@ -144,7 +161,7 @@ while menu:
         if len(possible) == 0:
             print("Song not found, please try another song!")
         elif len(possible) == 1:
-            print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
+            print("\n" + choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
         elif len(possible) > 1:
             print("Select the artist you are looking for: ")
             x = 1
@@ -152,8 +169,7 @@ while menu:
                 print(str(x) + ': ' + artists)
                 x = x + 1
             pick = input("Enter choice as a numerical answer ex '1' : ")
-            print('\n')
-            print(possible2[int(pick) - 1])
+            print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
     elif menu =="3":
         choice = input("Please enter a song: ")
         possible = []

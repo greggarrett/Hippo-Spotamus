@@ -37,6 +37,6 @@ class song(object):
         self.tempo = tempo
         #print("tempo", tempo, "\n")
         #intialize variables to hold the scores
-        self.score1 = 0
-        self.score2 = 0
-        self.score3 =0
+        self.score1 = 0.0
+        self.score2 = 0.0
+        self.score3 = 0.0

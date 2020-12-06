@@ -72,29 +72,27 @@ while menu:
     )
     menu = input("What would you like to do? ")
     if menu =="1":
-        choice = input("Please input your favorite song: ")
-        searchResults = nameSearch(choice, songlist)
-        if (len(searchResults) >= 1):
-            if (len(searchResults) == 1):
-                song = searchResults[0]
-                songID = song.id
-            else:
-                print("Duplicate song titles found")
-                print("----------------------------")
-
-                found = False
-                for song in searchResults:
-                    print("Is this the artist of your song? (Y/N): ")
-                    yn = input(song.artists + ": ")
-                    if (yn == "Y" or "y"):
-                        songID = song.id
-                        found = True
-                        break
-                    print("")
-
-                if not (found):
-                    print("Try entering a different song: ")
-                    break
+        print("Heap")
+        choice = input("Please enter a song: ")
+        possible = []
+        possible2 = []
+        for song in songlist:
+            if song.name == choice:
+                possible.append(song.artists)
+                possible2.append(song.id)
+        if len(possible) == 0:
+            print("Song not found, please try another song!")
+        elif len(possible) == 1:
+            print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
+        elif len(possible) > 1:
+            print("Select the artist you are looking for: ")
+            x = 1
+            for artists in possible:
+                print(str(x) + ': ' + artists)
+                x = x + 1
+            pick = input("Enter choice as a numerical answer ex '1' : ")
+            if (pick <= len(possible)):
+                print(choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
 
             # THIS IS THE PROBLEM AREA
             # Trying to get score object from dictionary given ID. Also want the song object
@@ -144,7 +142,7 @@ while menu:
                 possible.append(song.artists)
                 possible2.append(song.id)
         if len(possible) == 0:
-            print("song not found, please try another song.")
+            print("Song not found, please try another song!")
         elif len(possible) == 1:
             print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
         elif len(possible) > 1:
@@ -153,11 +151,11 @@ while menu:
             for artists in possible:
                 print(str(x) + ': ' + artists)
                 x = x + 1
-            pick = input("enter choice as a numerical answer ex '1' : ")
+            pick = input("Enter choice as a numerical answer ex '1' : ")
             print('\n')
-            print(possible2[pick - 1])
+            print(possible2[int(pick) - 1])
     elif menu =="3":
-        choice = input("please enter a song: ")
+        choice = input("Please enter a song: ")
         possible = []
         possible2 = []
         for song in songlist:
@@ -165,7 +163,7 @@ while menu:
                 possible.append(song.artists)
                 possible2.append(song.id)
         if len(possible) == 0:
-            print("song not found, please try another song.")
+            print("Song not found, please try another song!")
         elif len(possible) == 1:
             print(choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0])
         elif len(possible) > 1:
@@ -174,7 +172,7 @@ while menu:
             for artists in possible:
                 print(str(x) + ': ' + artists)
                 x = x + 1
-            pick = input("enter choice as a numerical answer ex '1' : ")
+            pick = input("Enter choice as a numerical answer ex '1' : ")
             print('\n' + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
     elif menu =="4":
       print("\nGoodbye!")

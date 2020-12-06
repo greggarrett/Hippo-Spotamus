@@ -30,9 +30,9 @@ for song in songlist:
     s2 = (float(song.valence) + float(song.danceability))/2
     s3 = (float(song.energy) + (float(song.loudness)/-60))/2
     scorelist.append(scores(s1, s2, s3))
-    dictionary[song.id] = [song, scorelist[x]]
-    x = x+1
 
+    dictionary[song.id] = [song, scorelist[x]]
+    x = x + 1
 
 menu = True
 while menu:

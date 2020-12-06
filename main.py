@@ -10,7 +10,6 @@ def keyChecker(dict, string):
     else:
         return False
 
-
 def idToName(id, songlist):
     for song in songlist:
         if (song.id == id):
@@ -75,20 +74,24 @@ while menu:
     menu = input("What would you like to do? ")
     if menu =="1":
         choice = input("Please input your favorite song: ")
-        searchResults = nameSearch(choice)
+        searchResults = nameSearch(choice, songlist)
         if (len(searchResults) >= 1):
             if (len(searchResults) == 1):
                 song = searchResults[0]
                 songID = song.id
             else:
                 print("Duplicate song titles found")
+                print("----------------------------")
 
                 found = False
                 for song in searchResults:
-                    yn = input("Is this the artist of your song? (Y/N): \n", song.artists)
-                    if (yn == 'y'):
+                    print("Is this the artist of your song? (Y/N): ")
+                    yn = input(song.artists + ": ")
+                    if (yn == "Y" or "y"):
                         songID = song.id
                         found = True
+                        break
+                    print("")
 
                 if not (found):
                     print("Try entering a different song: ")

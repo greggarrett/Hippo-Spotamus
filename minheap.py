@@ -28,11 +28,14 @@ class minheap(object):
             if (self.heap[loc] > self.heap[self.childLeft(loc)]) or (self.heap[loc] > self.heap[self.childRight(loc)]):
                 if (self.heap[self.childLeft(loc)] < self.heap[self.childRight(loc)]):
                     self.swap(loc, self.childLeft(loc))
-                    self.heapifyDown(self.childLeft(loc))
+                    if (self.childLeft(loc) < self.size):
+                        self.heapifyDown(self.childLeft(loc))
 
                 else:
-                    self.swap(loc, self.childRight(loc))
-                    self.heapifyDown(self.childRight(loc))
+                    if (self.childRight(loc) < self.size):
+                        self.swap(loc, self.childRight(loc))
+                    if (self.childLeft(loc) < self.size):
+                        self.heapifyDown(self.childRight(loc))
 
 
     def insert(self, score, song):

@@ -59,7 +59,7 @@ size = len(songlist)
 for song in songlist:
     song.score1 = s1 = (float(song.acousticness)+float(song.liveness))/2
     song.score2 = s2 = (float(song.valence) + float(song.danceability))/2
-    song.score3 = s3 = (float(song.energy) + (float(song.loudness)/-60))/2
+    song.score3 = s3 = (float(song.energy) + (float(song.tempo)/244))/2
     scorelist.append(scores(s1, s2, s3))
     dictionary[song.id] = [song]
     x = x + 1

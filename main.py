@@ -266,12 +266,18 @@ while menu:## While not exiting, loop menu
         for song in songlist:
             if song.artists == art:
                 artlist.append(song.name)
-        for arts in artlist:
-            print(arts)
+
+        if len(artlist) > 0:
+            print("\nShowing results for " + art + " : ")
+            print("---------------------------")
+            for arts in artlist:
+                print(arts)
+        else:
+            print("\nNo artists found by that name!")
 
     elif menu =="5":
       print("\nGoodbye!")
       menu = None
 
     else:
-       print("Please Try Again")
+       print("Invalid entry, please try again!")

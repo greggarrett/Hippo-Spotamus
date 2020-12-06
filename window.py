@@ -1,4 +1,4 @@
-from maxheap import maxheap
+from minheap import maxheap
 import time
 from tkinter import *
 from PIL import Image, ImageTk

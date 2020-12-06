@@ -130,24 +130,35 @@ while menu:
         resulting2 = []
         resulting3 = []
 
-        counter = 0
-        while counter < 15:
+        counter = len(adjustedSongList)
+        while counter >= 0:
             resulting1.append(heap1.delete())
             resulting2.append(heap2.delete())
             resulting3.append(heap3.delete())
-            counter += 1
+            counter -= 1
 
-        print("\nPrinting resulting1: ")
-        for resulting in resulting1:
-            print(resulting.name)
+        resulting1.reverse()
+        resulting2.reverse()
+        resulting3.reverse()
 
-        print("\nPrinting resulting2: ")
+        print("\nPrinting First Playlist: ")
+        print("---------------------------")
+        #for resulting in resulting1:
+           # print(resulting.name + " by " + resulting.artists)
+
+        print("\nPrinting Second Playlist: ")
+        print("---------------------------")
+        #for resulting in resulting2:
+           # print(resulting.name + " by " + resulting.artists)
+
+        print("\nPrinting Third Playlist: ")
+        print("---------------------------")
+
+        counter = 0
         for resulting in resulting2:
-            print(resulting.name)
-
-        print("\nPrinting resulting3: ")
-        for resulting in resulting3:
-            print(resulting.name)
+            if (counter < 15):
+                print(resulting.name + " by " + resulting.artists)
+                counter += 1
 
     elif menu =="2":
         print("Graph")
@@ -170,6 +181,7 @@ while menu:
                 x = x + 1
             pick = input("Enter choice as a numerical answer ex '1' : ")
             print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
+
     elif menu =="3":
         choice = input("Please enter a song: ")
         possible = []

@@ -55,7 +55,7 @@ class minheap(object):
                 scorePar = self.heap[self.parent(loc)]
 
                 while (scoreLoc < scorePar):
-                    print("IN PRINT 1 ---- scoreLoc: " + str(scoreLoc) + " ----- scorePar: " + str(scorePar))
+                    ##print("IN PRINT 1 ---- scoreLoc: " + str(scoreLoc) + " ----- scorePar: " + str(scorePar))
                     self.swap(loc, self.parent(loc))
                     loc = self.parent(loc)
                     scoreLoc = self.heap[loc]

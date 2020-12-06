@@ -1,8 +1,10 @@
 import csv
-from song import song
+from song import song, songScore1Comparable, songScore2Comparable, songScore3Comparable
 from scores import scores
 from masterlist import masterlist
 from minheap import minheap
+from graph import Graph
+from queue import PriorityQueue
 
 with open("wakeup.txt", 'r') as file:
     print(file.read())
@@ -34,6 +36,15 @@ def getSongScore(dictionary, songID):
         if key == songID:
             return dictionary[key]
 
+def getSongScore1(s):
+    return s.score1
+
+def getSongScore2(s):
+    return s.score2
+
+def getSongScore3(s):
+    return s.score3
+
 
 songlist = [] #Declares as a list
 with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# This works, don't question it
@@ -53,6 +64,10 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
 
 master = masterlist(songlist)# If we want an object for the list
 scorelist = [] #declare a list
+score1List = []
+score2List = []
+score3List = []
+
 dictionary = {}
 x = 0
 size = len(songlist)
@@ -61,8 +76,15 @@ for song in songlist:
     song.score2 = s2 = (float(song.valence) + float(song.danceability))/2
     song.score3 = s3 = (float(song.energy) + (float(song.tempo)/244))/2
     scorelist.append(scores(s1, s2, s3))
+    score1List.append(song)
+    score2List.append(song)
+    score3List.append(song)
     dictionary[song.id] = [song]
     x = x + 1
+
+score1List.sort(key=getSongScore1)
+score2List.sort(key=getSongScore2)
+score3List.sort(key=getSongScore3)
 
 menu = True
 while menu:
@@ -182,13 +204,16 @@ while menu:
         choice = input("Please enter a song: ")
         possible = []
         possible2 = []
+        possibleSong = []
         for song in songlist:
             if song.name == choice:
                 possible.append(song.artists)
                 possible2.append(song.id)
+                possibleSong.append(song)
         if len(possible) == 0:
             print("Song not found, please try another song!")
         elif len(possible) == 1:
+            targetSong = possibleSong[0]
             print("\n" + choice + " by " + possible[0] + '\n' + "has a songID of: " + possible2[0] + '\n')
         elif len(possible) > 1:
             print("Select the artist you are looking for: ")
@@ -197,7 +222,36 @@ while menu:
                 print(str(x) + ': ' + artists)
                 x = x + 1
             pick = input("Enter choice as a numerical answer ex '1' : ")
+            targetSong = possibleSong[int(pick)-1]
             print("\n" + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
+
+        graph = Graph()
+        x = 0
+        firstScore1 = score1List[x]
+        firstScore2 = score2List[x]
+        firstScore3 = score3List[x]
+
+        #creates graph, each node with 6 connections, nodes are doubly connected between each other
+        while x < len(songlist) - 1:
+            secondScore1 = score1List[x + 1]
+            graph.insertEdgeType(secondScore1, firstScore1, 0)
+            graph.insertEdgeType(firstScore1, secondScore1, 1)
+            firstScore1 = secondScore1
+
+            secondScore2 = score2List[x + 1]
+            graph.insertEdgeType(secondScore2, firstScore2, 2)
+            graph.insertEdgeType(firstScore2, secondScore2, 3)
+            firstScore2 = secondScore2
+
+            secondScore3 = score3List[x + 1]
+            graph.insertEdgeType(secondScore3, firstScore3, 4)
+            graph.insertEdgeType(firstScore3, secondScore3, 5)
+            firstScore3 = secondScore3
+            x = x + 1
+        
+        output = graph.bfs(targetSong, 15)
+        for resultingSong in output:
+            print(resultingSong.name + " by " + resultingSong.artists)
 
     elif menu =="3":
         choice = input("Please enter a song: ")

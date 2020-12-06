@@ -37,6 +37,44 @@ class song(object):
         self.tempo = tempo
         #print("tempo", tempo, "\n")
         #intialize variables to hold the scores
-        self.score1 = 0.0
-        self.score2 = 0.0
-        self.score3 = 0.0
+        self.score1 = 0
+        self.score2 = 0
+        self.score3 = 0
+
+#These may not be used anymore. Shall See
+class songScore1Comparable(song):
+    def __init__(self, s):
+        super().__init__(s.valence, s.year, s.acousticness, s.artists, s.danceability,
+                 s.duration_ms, s.energy, s.id, s.instrumentalness, s.key, s.liveness,
+                 s.loudness, s.name, s.release_date, s.speechiness, s.tempo)
+
+    def __gt__(self, other):
+        return self.score1 > other.score1
+    
+    def __eq__(self, other):
+        return self.score1 == other.score1 
+
+class songScore2Comparable(song):
+    def __init__(self, s):
+        super().__init__(s.valence, s.year, s.acousticness, s.artists, s.danceability,
+                 s.duration_ms, s.energy, s.id, s.instrumentalness, s.key, s.liveness,
+                 s.loudness, s.name, s.release_date, s.speechiness, s.tempo)
+
+    def __gt__(self, other):
+        return self.score2 > other.score2
+    
+    def __eq__(self, other):
+        return self.score2 == other.score2
+
+class songScore3Comparable(song):
+    def __init__(self, s):
+        super().__init__(s.valence, s.year, s.acousticness, s.artists, s.danceability,
+                 s.duration_ms, s.energy, s.id, s.instrumentalness, s.key, s.liveness,
+                 s.loudness, s.name, s.release_date, s.speechiness, s.tempo)
+
+    def __gt__(self, other):
+        return self.score3 > other.score3
+    
+    def __eq__(self, other):
+        return self.score3 == other.score3
+    

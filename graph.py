@@ -87,5 +87,3 @@ class Graph:
             nodePosition = nodePosition + 1
 
             return outputList
-
-        

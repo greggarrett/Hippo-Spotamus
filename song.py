@@ -1,45 +1,28 @@
-class song(object):
+class song(object):## song object class
 
-    def __init__(self, valence, year, acousticness, artists, danceability,
+    def __init__(self, valence, year, acousticness, artists, danceability,## Song object constructor
                  duration_ms, energy, id, instrumentalness, key, liveness,
                  loudness, name, release_date, speechiness, tempo):
 
-        self.valence = valence
-        #print("Valence", valence)
-        self.year = year
-        #print("Year", year)
-        self.acousticness = acousticness
-        #print("acousticness", acousticness)
-        self.artists = artists
-        #print("artists", artists)
-        self.danceability = danceability
-        #print("danceability", danceability)
-        self.duration_ms = duration_ms
-        #print("duration_ms", duration_ms)
-        self.energy = energy
-        #print("energy", energy)
-        self.id = id
-        #print("id", id)
-        self.instrumentalness = instrumentalness
-        #print("instrumentalness", instrumentalness)
-        self.key = key
-        #print("key", key)
-        self.liveness = liveness
-        #print("liveness", liveness)
-        self.loudness = loudness
-        #print("loudness", loudness)
-        self.name = name
-        #print("name", name)
-        self.release_date = release_date
-        #print("release_date", release_date)
-        self.speechiness = speechiness
-        #print("speechiness", speechiness)
-        self.tempo = tempo
-        #print("tempo", tempo, "\n")
-        #intialize variables to hold the scores
-        self.score1 = 0.0
-        self.score2 = 0.0
-        self.score3 = 0.0
+        self.valence = valence## Assigns valence
+        self.year = year## Assigns year
+        self.acousticness = acousticness## Assigns acousticness
+        self.artists = artists## Assigns artists
+        self.danceability = danceability## Assigns danceability
+        self.duration_ms = duration_ms## Assigns duration_ms
+        self.energy = energy## Assigns energy
+        self.id = id## Assigns id
+        self.instrumentalness = instrumentalness## Assigns instrumentalness
+        self.key = key## Assigns key
+        self.liveness = liveness## Assigns liveness
+        self.loudness = loudness## Assigns loudness
+        self.name = name## Assigns name
+        self.release_date = release_date## Assigns release_date
+        self.speechiness = speechiness## Assigns speechiness
+        self.tempo = tempo## Assigns tempo
+        self.score1 = 0.0## Intialize variables to hold the score 1
+        self.score2 = 0.0## Intialize variables to hold the score 2
+        self.score3 = 0.0## Intialize variables to hold the score 3
 
 #These may not be used anymore. Shall See
 class songScore1Comparable(song):

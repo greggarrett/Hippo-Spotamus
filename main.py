@@ -22,12 +22,17 @@ with open('data.csv', 'r', encoding = 'utf-8', errors = 'ignore') as csvfile:# T
 
 master = masterlist(songlist)# If we want an object for the list
 scorelist = [] #declare a list
+dictionary = {}
+x = 0
 size = len(songlist)
 for song in songlist:
     s1 = (float(song.acousticness)+float(song.liveness))/2
     s2 = (float(song.valence) + float(song.danceability))/2
     s3 = (float(song.energy) + (float(song.loudness)/-60))/2
     scorelist.append(scores(s1, s2, s3))
+    dictionary[song.id] = [song, scorelist[x]]
+    x = x+1
+
 
 menu = True
 while menu:

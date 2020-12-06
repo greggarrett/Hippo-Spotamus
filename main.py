@@ -10,7 +10,6 @@ def keyChecker(dict, string):
     else:
         return False
 
-
 def idToName(id, songlist):
     for song in songlist:
         if (song.id == id):
@@ -86,10 +85,13 @@ while menu:
 
                 found = False
                 for song in searchResults:
-                    yn = input("Is this the artist of your song? (Y/N): " + song.artists)
+                    print("Is this the artist of your song? (Y/N): ")
+                    yn = input(song.artists + ": ")
                     if (yn == "Y" or "y"):
                         songID = song.id
                         found = True
+                        break
+                    print("")
 
                 if not (found):
                     print("Try entering a different song: ")
@@ -135,8 +137,6 @@ while menu:
 
     elif menu =="2":
         print("Graph")
-        # Call Graph class
-    elif menu =="3":
         choice = input("please enter a song: ")
         possible = []
         possible2 = []
@@ -152,11 +152,13 @@ while menu:
             print("Select the artist you are looking for: \n")
             x = 1
             for artists in possible:
-                print(str(x) + ': ' + artists )
-                x = x+1
+                print(str(x) + ': ' + artists)
+                x = x + 1
             pick = input("enter choice as a numerical answer ex '1' : ")
             print('\n')
-            print(possible2[pick-1])
+            print(possible2[pick - 1])
+    elif menu =="3":
+      print("ID of Song is: ")
         # Call ID finder
     elif menu =="4":
       print("\nGoodbye!")

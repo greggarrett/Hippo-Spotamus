@@ -71,7 +71,8 @@ while menu:
     "1.Generate Max-Heap Playlist\n"
     "2.Generate Graph Playlist\n"
     "3.Search for Song ID\n"
-    "4.Exit\n"
+    "4.Search Songs by Artist"
+    "5.Exit\n"
     )
     menu = input("What would you like to do? ")
     if menu =="1":
@@ -148,11 +149,21 @@ while menu:
         print("---------------------------")
         #for resulting in resulting1:
            # print(resulting.name + " by " + resulting.artists)
+        counter1 = 0
+        for resulting in resulting1:
+            if (counter1 < 15):
+                print(resulting.name + " by " + resulting.artists)
+                counter1 += 1
 
         print("\nPrinting Second Playlist: ")
         print("---------------------------")
         #for resulting in resulting2:
            # print(resulting.name + " by " + resulting.artists)
+        counter2 = 0
+        for resulting in resulting2:
+            if (counter2 < 15):
+                print(resulting.name + " by " + resulting.artists)
+                counter2 += 1
 
         print("\nPrinting Third Playlist: ")
         print("---------------------------")
@@ -206,6 +217,14 @@ while menu:
             pick = input("Enter choice as a numerical answer ex '1' : ")
             print('\n' + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])
     elif menu =="4":
+        artlist = []
+        art = input("Input your favorite artist: ")
+        for song in songlist:
+            if song.artists == art:
+                artlist.append(song.name)
+        for arts in artlist:
+            print(arts)
+    elif menu =="5":
       print("\nGoodbye!")
       menu = None
     else:

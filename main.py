@@ -167,6 +167,22 @@ while menu:
         resulting2.reverse()
         resulting3.reverse()
 
+        joinedResulting = resulting1 + resulting2 + resulting3
+
+        occurences = {}
+        finalPlaylist = []
+
+        for song in joinedResulting:
+            if not song.id in occurences.keys():
+                occurences[song.id] = 1
+            else:
+                occurences[song.id] += 1
+                if len(finalPlaylist) < 15:
+                    if occurences[song.id] == 2:
+                        finalPlaylist.append(song)
+
+
+
         print("\nPrinting First Playlist: ")
         print("---------------------------")
         #for resulting in resulting1:
@@ -197,6 +213,10 @@ while menu:
                 counter += 1
 
 
+        print("\nPrinting Final Playlist: ")
+        print("---------------------------")
+        for song in finalPlaylist:
+            print(song.name + " by " + song.artists)
 
 
     elif menu =="2":

@@ -3,6 +3,7 @@ class song(object):
     def __init__(self, valence, year, acousticness, artists, danceability,
                  duration_ms, energy, id, instrumentalness, key, liveness,
                  loudness, name, release_date, speechiness, tempo):
+
         self.valence = valence
         #print("Valence", valence)
         self.year = year

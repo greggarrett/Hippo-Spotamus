@@ -3,6 +3,7 @@ from graph import Graph
 from minheap import minheap
 from scores import scores
 from song import song
+from time import perf_counter
 
 with open("wakeup.txt", 'r') as file:  ## Prints out wakeup ascii
     print(file.read())
@@ -121,6 +122,7 @@ while menu:  ## While not exiting, loop menu
             print("\nNow generating your recommended playlist. . .")
 
         if valid:  ## If validity check is true
+            tstart = perf_counter()
             adjustedSongList = []  ## Make a playlist of song objects with adjusted scores
             for song in songlist:  ## Loop over songs in songlist
                 song2 = song  ## Copy songs in songlist to a new song object
@@ -173,10 +175,14 @@ while menu:  ## While not exiting, loop menu
                         if occurences[song.id] == 2:  ## If this is the second time that we've found this song in our list
                             finalPlaylist.append(song)  ## Add this song to the final playlist
 
+            tstop = perf_counter()
             print("\nPrinting Final Playlist: ")
             print("---------------------------")
             for song in finalPlaylist:  ## Loop over the songs in our final playlist
                 print(song.name + " by " + song.artists)  ## Print out the songs in our final playlist
+
+            elapsed = tstop-tstart
+            print("\nPlaylist generated in: " + str(elapsed) + " seconds")
 
     elif menu =="2":  ## If our input is 2, build a graph playlist
         print("You have selected: Graph Playlist")
@@ -210,6 +216,7 @@ while menu:  ## While not exiting, loop menu
             print("\nNow generating your recommended playlist. . .")
 
         if valid:
+            tstart = perf_counter()
             graph = Graph()
             x = 0
             firstScore1 = score1List[x]
@@ -235,9 +242,13 @@ while menu:  ## While not exiting, loop menu
                 x = x + 1
 
             output = graph.treatLikeATripleLinkedList(targetSong, 15) #This line should be changed if you want to try bfs, dfs, or lastVersion
+            tstop = perf_counter()
+
             for resultingSong in output:
                 print(resultingSong.name + " by " + resultingSong.artists)
 
+            elapsed = tstop - tstart
+            print("\nPlaylist generated in: " + str(elapsed) + " seconds")
 
     elif menu == "3":  ## If our input is 3, generate a combined playlist
         print("You have selected: Combined Playlist")
@@ -271,6 +282,7 @@ while menu:  ## While not exiting, loop menu
             print("\nNow generating your recommended playlist. . .")
 
             if valid:
+                tstart = perf_counter()
                 ##  Heap Implementation
                 adjustedSongList = []  ## Make a playlist of song objects with adjusted scores
                 for song in songlist:  ## Loop over songs in songlist
@@ -356,6 +368,7 @@ while menu:  ## While not exiting, loop menu
                     x = x + 1
 
                 output = graph.treatLikeATripleLinkedList(targetSong, 15)  # This line should be changed if you want to try bfs, dfs, or lastVersion
+                tstop = perf_counter()
 
                 print("\nPrinting Final Playlist: ")
                 print("---------------------------")
@@ -363,6 +376,9 @@ while menu:  ## While not exiting, loop menu
                     print(song.name + " by " + song.artists)  ## Print out the songs in our final playlist
                 for resultingSong in output:
                     print(resultingSong.name + " by " + resultingSong.artists)
+
+                elapsed = tstop - tstart
+                print("\nPlaylist generated in: " + str(elapsed) + " seconds")
 
     elif menu =="4":  ## If our input is 4, search for a song ID
         choice = input("Please enter a song title: ")

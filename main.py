@@ -281,104 +281,98 @@ while menu:  ## While not exiting, loop menu
             targetSong = possibleSong[int(pick) - 1]  ## targetSong is the song by selected artist
             print("\nNow generating your recommended playlist. . .")
 
-            if valid:
-                tstart = perf_counter()
-                ##  Heap Implementation
-                adjustedSongList = []  ## Make a playlist of song objects with adjusted scores
-                for song in songlist:  ## Loop over songs in songlist
-                    song2 = song  ## Copy songs in songlist to a new song object
-                    adjustedSongList.append(song2)  ## Add the new song object to a cloned, adjusted list
+        if valid:
+            tstart = perf_counter()
+            ##  Heap Implementation
+            adjustedSongList = []  ## Make a playlist of song objects with adjusted scores
+            for song in songlist:  ## Loop over songs in songlist
+                song2 = song  ## Copy songs in songlist to a new song object
+                adjustedSongList.append(song2)  ## Add the new song object to a cloned, adjusted list
 
-                targetScore1 = targetSong.score1  ## Uses our targetSong's score 1 as the ideal score 1
-                targetScore2 = targetSong.score2  ## Uses our targetSong's score 2 as the ideal score 2
-                targetScore3 = targetSong.score3  ## Uses our targetSong's score 3 as the ideal score 3
+            targetScore1 = targetSong.score1  ## Uses our targetSong's score 1 as the ideal score 1
+            targetScore2 = targetSong.score2  ## Uses our targetSong's score 2 as the ideal score 2
+            targetScore3 = targetSong.score3  ## Uses our targetSong's score 3 as the ideal score 3
 
-                for song in adjustedSongList:  ## Loops over songs in adjustedSongList
-                    song.score1 = (1 - abs(targetScore1 - song.score1))  ## adjustedSong's score 1 is assigned
-                    song.score2 = (1 - abs(targetScore2 - song.score2))  ## adjustedSong's score 2 is assigned
-                    song.score3 = (1 - abs(targetScore3 - song.score3))  ## adjustedSong's score 3 is assigned
+            for song in adjustedSongList:  ## Loops over songs in adjustedSongList
+                song.score1 = (1 - abs(targetScore1 - song.score1))  ## adjustedSong's score 1 is assigned
+                song.score2 = (1 - abs(targetScore2 - song.score2))  ## adjustedSong's score 2 is assigned
+                song.score3 = (1 - abs(targetScore3 - song.score3))  ## adjustedSong's score 3 is assigned
 
-                heap1 = minheap(
-                    len(adjustedSongList))  ## Create a minheap for score 1 with the size of the adjustedSongList
-                heap2 = minheap(
-                    len(adjustedSongList))  ## Create a minheap for score 2 with the size of the adjustedSongList
-                heap3 = minheap(
-                    len(adjustedSongList))  ## Create a minheap for score 3 with the size of the adjustedSongList
+            heap1 = minheap(len(adjustedSongList))  ## Create a minheap for score 1 with the size of the adjustedSongList
+            heap2 = minheap(len(adjustedSongList))  ## Create a minheap for score 2 with the size of the adjustedSongList
+            heap3 = minheap(len(adjustedSongList))  ## Create a minheap for score 3 with the size of the adjustedSongList
 
-                for song in adjustedSongList:  ## For songs in adjustedSongList
-                    heap1.insert(song.score1, song)  ## Insert song score 1 and song object into heap
-                    heap2.insert(song.score2, song)  ## Insert song score 2 and song object into heap
-                    heap3.insert(song.score3, song)  ## Insert song score 3 and song object into heap
+            for song in adjustedSongList:  ## For songs in adjustedSongList
+                heap1.insert(song.score1, song)  ## Insert song score 1 and song object into heap
+                heap2.insert(song.score2, song)  ## Insert song score 2 and song object into heap
+                heap3.insert(song.score3, song)  ## Insert song score 3 and song object into heap
 
-                resulting1 = []  ## Create a list for the song similarity using score 1
-                resulting2 = []  ## Create a list for the song similarity using score 2
-                resulting3 = []  ## Create a list for the song similarity using score 3
+            resulting1 = []  ## Create a list for the song similarity using score 1
+            resulting2 = []  ## Create a list for the song similarity using score 2
+            resulting3 = []  ## Create a list for the song similarity using score 3
 
-                counter = len(adjustedSongList)  ## Counter is initially the size of the playlist
-                while counter > 0:  ## Counter decrements until there are none left
-                    resulting1.append(
-                        heap1.delete())  ## Delete top of min-heap and return the song object that was deleted to score 1 list
-                    resulting2.append(
-                        heap2.delete())  ## Delete top of min-heap and return the song object that was deleted to score 2 list
-                    resulting3.append(
-                        heap3.delete())  ## Delete top of min-heap and return the song object that was deleted to score 3 list
-                    counter -= 1  ## Decrements counter
+            counter = len(adjustedSongList)  ## Counter is initially the size of the playlist
+            while counter > 0:  ## Counter decrements until there are none left
+                resulting1.append(heap1.delete())  ## Delete top of min-heap and return the song object that was deleted to score 1 list
+                resulting2.append(heap2.delete())  ## Delete top of min-heap and return the song object that was deleted to score 2 list
+                resulting3.append(heap3.delete())  ## Delete top of min-heap and return the song object that was deleted to score 3 list
+                counter -= 1  ## Decrements counter
 
-                resulting1.reverse()  ## Reverse list 1 to get in correct priority
-                resulting2.reverse()  ## Reverse list 2 to get in correct priority
-                resulting3.reverse()  ## Reverse list 3 to get in correct priority
+            resulting1.reverse()  ## Reverse list 1 to get in correct priority
+            resulting2.reverse()  ## Reverse list 2 to get in correct priority
+            resulting3.reverse()  ## Reverse list 3 to get in correct priority
 
-                joinedResulting = resulting1 + resulting2 + resulting3  ## Join all three lists together
+            joinedResulting = resulting1 + resulting2 + resulting3  ## Join all three lists together
 
-                occurences = {}  ## Create a dictionary for occurences
-                finalPlaylist = []  ## Create a list for the final playlist
+            occurences = {}  ## Create a dictionary for occurences
+            finalPlaylist = []  ## Create a list for the final playlist
 
-                for song in joinedResulting:  ## Loop over songs in the combined lists
-                    if not song.id in occurences.keys():  ## If this song id isn't in a dictionary yet
-                        occurences[song.id] = 1  ## Initialize it's occurence count as 1
-                    else:  ## If this song id has been added to dictionary already
-                        occurences[song.id] += 1  ## Increment it's occurence
-                        if len(finalPlaylist) < 15:  ## If our total playlist is still less than 15 songs
-                            if occurences[song.id] == 2:  ## If this is the second time that we've found this song in our list
-                                finalPlaylist.append(song)  ## Add this song to the final playlist
+            for song in joinedResulting:  ## Loop over songs in the combined lists
+                if not song.id in occurences.keys():  ## If this song id isn't in a dictionary yet
+                    occurences[song.id] = 1  ## Initialize it's occurence count as 1
+                else:  ## If this song id has been added to dictionary already
+                    occurences[song.id] += 1  ## Increment it's occurence
+                    if len(finalPlaylist) < 15:  ## If our total playlist is still less than 15 songs
+                        if occurences[song.id] == 2:  ## If this is the second time that we've found this song in our list
+                            finalPlaylist.append(song)  ## Add this song to the final playlist
 
-                ##  Graph Implementation
-                graph = Graph()
-                x = 0
-                firstScore1 = score1List[x]
-                firstScore2 = score2List[x]
-                firstScore3 = score3List[x]
+            ##  Graph Implementation
+            graph = Graph()
+            x = 0
+            firstScore1 = score1List[x]
+            firstScore2 = score2List[x]
+            firstScore3 = score3List[x]
 
-                # creates graph, each node with 6 connections, nodes are doubly connected between each other
-                while x < len(songlist) - 1:
-                    secondScore1 = score1List[x + 1]
-                    graph.insertEdgeType(secondScore1, firstScore1, 0)
-                    graph.insertEdgeType(firstScore1, secondScore1, 1)
-                    firstScore1 = secondScore1
+            # creates graph, each node with 6 connections, nodes are doubly connected between each other
+            while x < len(songlist) - 1:
+                secondScore1 = score1List[x + 1]
+                graph.insertEdgeType(secondScore1, firstScore1, 0)
+                graph.insertEdgeType(firstScore1, secondScore1, 1)
+                firstScore1 = secondScore1
 
-                    secondScore2 = score2List[x + 1]
-                    graph.insertEdgeType(secondScore2, firstScore2, 2)
-                    graph.insertEdgeType(firstScore2, secondScore2, 3)
-                    firstScore2 = secondScore2
+                secondScore2 = score2List[x + 1]
+                graph.insertEdgeType(secondScore2, firstScore2, 2)
+                graph.insertEdgeType(firstScore2, secondScore2, 3)
+                firstScore2 = secondScore2
 
-                    secondScore3 = score3List[x + 1]
-                    graph.insertEdgeType(secondScore3, firstScore3, 4)
-                    graph.insertEdgeType(firstScore3, secondScore3, 5)
-                    firstScore3 = secondScore3
-                    x = x + 1
+                secondScore3 = score3List[x + 1]
+                graph.insertEdgeType(secondScore3, firstScore3, 4)
+                graph.insertEdgeType(firstScore3, secondScore3, 5)
+                firstScore3 = secondScore3
+                x = x + 1
 
-                output = graph.bfs(targetSong, 15) 
-                tstop = perf_counter()
+            output = graph.bfs(targetSong, 15)
+            tstop = perf_counter()
 
-                print("\nPrinting Final Playlist: ")
-                print("---------------------------")
-                for song in finalPlaylist:  ## Loop over the songs in our final playlist
-                    print(song.name + " by " + song.artists)  ## Print out the songs in our final playlist
-                for resultingSong in output:
-                    print(resultingSong.name + " by " + resultingSong.artists)
+            print("\nPrinting Final Playlist: ")
+            print("---------------------------")
+            for song in finalPlaylist:  ## Loop over the songs in our final playlist
+                print(song.name + " by " + song.artists)  ## Print out the songs in our final playlist
+            for resultingSong in output:
+                print(resultingSong.name + " by " + resultingSong.artists)
 
-                elapsed = tstop - tstart
-                print("\nPlaylist generated in: " + str(elapsed) + " seconds")
+            elapsed = tstop - tstart
+            print("\nPlaylist generated in: " + str(elapsed) + " seconds")
 
     elif menu =="4":  ## If our input is 4, search for a song ID
         choice = input("Please enter a song title: ")

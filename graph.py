@@ -2,7 +2,7 @@ from song import song
 from collections import deque
 
 class Node(song):
-    #node parameter below is a song. Can rename to something better
+    #node parameter below is a Song object.
     def __init__(self, node):
         super().__init__(node.valence, node.year, node.acousticness, node.artists, node.danceability,
                  node.duration_ms, node.energy, node.id, node.instrumentalness, node.key, node.liveness,
@@ -11,15 +11,19 @@ class Node(song):
         self.directionsToIds = {}
         self.visited = 0
 
+    #Returns list of keys adjacencyList
     def getAdjacencyList(self):
         return self.adjacencyList.keys()
 
+    #Returns adjacencyList
     def getAdjacencyListFull(self):
         return self.adjacencyList
 
+    #Returns edgeType/weight
     def getWeight(self, adjacentNodeId):
         return self.adjacencyList[adjacentNodeId]
 
+    #Insert's adjacent vertice's Id into adjacencyList, and vice versa in directionsToIds
     def insertAdjacent(self, adjacentNodeId, edgeType):
         self.adjacencyList[adjacentNodeId] = edgeType
         self.directionsToIds[edgeType] = adjacentNodeId
@@ -29,11 +33,13 @@ class Graph:
         self.nodes = {}
         self.size = 0
 
+    #Inserts song as a vertice into list of graph's nodes
     def insert(self, song):
         addedNode = Node(song)
         self.nodes[song.id] = addedNode
         self.size = self.size + 1
 
+    #Returns a vertice if it exists in the graph based on inputted id
     def getNode(self, i):
         if i in self.nodes:
             return self.nodes[i]

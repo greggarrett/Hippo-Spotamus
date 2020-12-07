@@ -1,5 +1,3 @@
-from song import song
-import sys
 class minheap(object):  ## Minheap object class
 
     def __init__(self, max): ## Initialize min-heap

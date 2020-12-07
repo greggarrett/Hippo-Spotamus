@@ -1,9 +1,8 @@
 import csv
-from song import song, songScore1Comparable, songScore2Comparable, songScore3Comparable
-from scores import scores
+from graph import Graph
 from minheap import minheap
-from graph import Node, Graph
-from queue import PriorityQueue
+from scores import scores
+from song import song
 
 with open("wakeup.txt", 'r') as file:  ## Prints out wakeup ascii
     print(file.read())
@@ -81,10 +80,10 @@ score3List.sort(key=getSongScore3)  ## Sorts dictionary
 menu = True  ## Bool to keep menu running until exit
 while menu:  ## While not exiting, loop menu
     print(  ## Menu Print
-    "\n--------- MENU ---------\n"
+    "\n---------- MENU ----------\n"
     "1.Generate Min-Heap Playlist\n"
     "2.Generate Graph Playlist\n"
-    "3.Generate Ultimate Playlist\n"
+    "3.Generate Combined Playlist\n"
     "4.Search for Song ID\n"
     "5.Search Songs by Artist\n"
     "6.Exit\n"
@@ -240,7 +239,7 @@ while menu:  ## While not exiting, loop menu
                 print(resultingSong.name + " by " + resultingSong.artists)
 
 
-    elif menu == "3":
+    elif menu == "3":  ## If our input is 3, generate a combined playlist
         print("You have selected: Combined Playlist")
         choice = input("Please enter a song: ")  ## Input for song selection
         possible = []  ## List for all possible artists
@@ -328,8 +327,7 @@ while menu:  ## While not exiting, loop menu
                     else:  ## If this song id has been added to dictionary already
                         occurences[song.id] += 1  ## Increment it's occurence
                         if len(finalPlaylist) < 15:  ## If our total playlist is still less than 15 songs
-                            if occurences[
-                                song.id] == 2:  ## If this is the second time that we've found this song in our list
+                            if occurences[song.id] == 2:  ## If this is the second time that we've found this song in our list
                                 finalPlaylist.append(song)  ## Add this song to the final playlist
 
                 ##  Graph Implementation
@@ -366,7 +364,7 @@ while menu:  ## While not exiting, loop menu
                 for resultingSong in output:
                     print(resultingSong.name + " by " + resultingSong.artists)
 
-    elif menu =="4":  ## If our input is 3, search for a song ID
+    elif menu =="4":  ## If our input is 4, search for a song ID
         choice = input("Please enter a song title: ")
         possible = []  ## Creates a list of possible song artists
         possible2 = []  ## Creates a list of possible song ids
@@ -387,7 +385,7 @@ while menu:  ## While not exiting, loop menu
             pick = input("Enter choice as a numerical answer ex '1' : ")  ## Prompts input for choosing which artist
             print('\n' + choice + " by " + possible[int(pick)-1] + '\n' + "has a songID of: " + possible2[int(pick)-1])  ## Prints song by selected artist
 
-    elif menu =="5":  ## If our input is 4, search for songs by artist
+    elif menu =="5":  ## If our input is 5, search for songs by artist
         artlist = []  ## Create list for songs by artist
         art = input("Input your favorite artist: ")  ## Input for artist choice
         art = "['" + art + "']"  ## Formats search term for artist value
@@ -403,7 +401,7 @@ while menu:  ## While not exiting, loop menu
         else:  ## If no songs by artist were found, print message
             print("\nNo artists found by that name!")
 
-    elif menu =="6":  ## If our input is 5, exit the program
+    elif menu =="6":  ## If our input is 6, exit the program
       print("\nGoodbye!")
       menu = None  ## Quit menu
 

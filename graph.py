@@ -187,5 +187,3 @@ class Graph:
                 right3.visited = 0
 
         return outputList
-
-

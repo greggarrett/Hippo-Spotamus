@@ -241,7 +241,7 @@ while menu:  ## While not exiting, loop menu
                 firstScore3 = secondScore3
                 x = x + 1
 
-            output = graph.treatLikeATripleLinkedList(targetSong, 15) #This line should be changed if you want to try bfs, dfs, or lastVersion
+            output = graph.bfs(targetSong, 15) #bfs the graph to retrieve output of 15 songs
             tstop = perf_counter()
 
             for resultingSong in output:
@@ -367,7 +367,7 @@ while menu:  ## While not exiting, loop menu
                     firstScore3 = secondScore3
                     x = x + 1
 
-                output = graph.treatLikeATripleLinkedList(targetSong, 15)  # This line should be changed if you want to try bfs, dfs, or lastVersion
+                output = graph.bfs(targetSong, 15) 
                 tstop = perf_counter()
 
                 print("\nPrinting Final Playlist: ")

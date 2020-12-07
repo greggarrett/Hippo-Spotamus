@@ -2,7 +2,7 @@ import csv
 from song import song, songScore1Comparable, songScore2Comparable, songScore3Comparable
 from scores import scores
 from minheap import minheap
-from graph import Graph
+from graph import Node, Graph
 from queue import PriorityQueue
 
 with open("wakeup.txt", 'r') as file:  ## Prints out wakeup ascii
@@ -233,8 +233,8 @@ while menu:  ## While not exiting, loop menu
                 graph.insertEdgeType(firstScore3, secondScore3, 5)
                 firstScore3 = secondScore3
                 x = x + 1
-        
-            output = graph.bfs(targetSong, 15)
+
+            output = graph.treatLikeATripleLinkedList(targetSong, 15) #This line should be changed if you want to try bfs, dfs, or lastVersion
             for resultingSong in output:
                 print(resultingSong.name + " by " + resultingSong.artists)
 
